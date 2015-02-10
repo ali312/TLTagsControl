@@ -7,8 +7,10 @@
 //
 
 #import "ViewController.h"
-
+#import "TLTagsControl.h"
 @interface ViewController ()
+
+@property (nonatomic, strong) IBOutlet TLTagsControl *tagControl;
 
 @end
 

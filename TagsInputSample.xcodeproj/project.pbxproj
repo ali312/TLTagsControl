@@ -14,6 +14,7 @@
 		ED8250AF1A8A91E000528293 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED8250AE1A8A91E000528293 /* Images.xcassets */; };
 		ED8250B21A8A91E000528293 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED8250B01A8A91E000528293 /* LaunchScreen.xib */; };
 		ED8250BE1A8A91E000528293 /* TagsInputSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8250BD1A8A91E000528293 /* TagsInputSampleTests.m */; };
+		ED8250CA1A8A927A00528293 /* TLTagsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8250C91A8A927A00528293 /* TLTagsControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		ED8250B71A8A91E000528293 /* TagsInputSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TagsInputSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED8250BC1A8A91E000528293 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED8250BD1A8A91E000528293 /* TagsInputSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagsInputSampleTests.m; sourceTree = "<group>"; };
+		ED8250C81A8A927A00528293 /* TLTagsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TLTagsControl.h; path = TLTagsContol/TLTagsControl.h; sourceTree = SOURCE_ROOT; };
+		ED8250C91A8A927A00528293 /* TLTagsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TLTagsControl.m; path = TLTagsContol/TLTagsControl.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,7 @@
 		ED8250951A8A91DF00528293 = {
 			isa = PBXGroup;
 			children = (
+				ED8250C71A8A923600528293 /* TLTagsControl */,
 				ED8250A01A8A91E000528293 /* TagsInputSample */,
 				ED8250BA1A8A91E000528293 /* TagsInputSampleTests */,
 				ED82509F1A8A91E000528293 /* Products */,
@@ -117,6 +121,16 @@
 				ED8250BC1A8A91E000528293 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ED8250C71A8A923600528293 /* TLTagsControl */ = {
+			isa = PBXGroup;
+			children = (
+				ED8250C81A8A927A00528293 /* TLTagsControl.h */,
+				ED8250C91A8A927A00528293 /* TLTagsControl.m */,
+			);
+			name = TLTagsControl;
+			path = TagsInputSample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +235,7 @@
 			files = (
 				ED8250AA1A8A91E000528293 /* ViewController.m in Sources */,
 				ED8250A71A8A91E000528293 /* AppDelegate.m in Sources */,
+				ED8250CA1A8A927A00528293 /* TLTagsControl.m in Sources */,
 				ED8250A41A8A91E000528293 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
