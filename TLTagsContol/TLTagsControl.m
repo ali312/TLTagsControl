@@ -21,6 +21,27 @@
     self = [super init];
     
     if (self != nil) {
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    
+    if (self != nil) {
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    
+    if (self != nil) {
+        [self commonInit];
     }
     
     return self;
@@ -28,7 +49,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    [self commonInit];
+}
+
+- (void)commonInit {
     _tags = [NSMutableArray array];
     
     self.layer.cornerRadius = 5;
@@ -36,7 +60,6 @@
     tagSubviews_ = [NSMutableArray array];
     
     tagInputField_ = [[UITextField alloc] initWithFrame:self.frame];
-    [self addSubview:tagInputField_];
     tagInputField_.layer.cornerRadius = 5;
     tagInputField_.layer.borderColor = [UIColor lightGrayColor].CGColor;
     tagInputField_.backgroundColor = [UIColor whiteColor];
@@ -44,45 +67,62 @@
     tagInputField_.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
     tagInputField_.placeholder = @"tag";
     tagInputField_.autocorrectionType = UITextAutocorrectionTypeNo;
+    
+    if (_mode == TLTagsControlModeEdit) {
+        [self addSubview:tagInputField_];
+    }
 }
+
+#pragma mark - layout stuff
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    CGRect frame = tagInputField_.frame;
-    frame.size.height = self.frame.size.height;
-    frame.origin.y = 0;
+    CGSize contentSize = self.contentSize;
+    CGRect frame = CGRectMake(0, 0, 100, self.frame.size.height);
+    CGRect tempViewFrame;
+    for (UIView *view in tagSubviews_) {
+        tempViewFrame = view.frame;
+        NSInteger index = [tagSubviews_ indexOfObject:view];
+        if (index != 0) {
+            UIView *prevView = tagSubviews_[index - 1];
+            tempViewFrame.origin.x = prevView.frame.origin.x + prevView.frame.size.width + 4;
+        } else {
+            tempViewFrame.origin.x = 0;
+        }
+        tempViewFrame.origin.y = frame.origin.y;
+        view.frame = tempViewFrame;
+    }
     
-    if (tagSubviews_.count == 0) {
-        frame.origin.x = 7;
-    } else {
-        CGRect tempViewFrame;
-        for (UIView *view in tagSubviews_) {
-            tempViewFrame = view.frame;
-            NSInteger index = [tagSubviews_ indexOfObject:view];
-            if (index != 0) {
-                UIView *prevView = tagSubviews_[index - 1];
-                tempViewFrame.origin.x = prevView.frame.origin.x + prevView.frame.size.width + 4;
-            } else {
-                tempViewFrame.origin.x = 0;
-            }
-            tempViewFrame.origin.y = frame.origin.y;
-            view.frame = tempViewFrame;
+    if (_mode == TLTagsControlModeEdit) {
+        frame = tagInputField_.frame;
+        frame.size.height = self.frame.size.height;
+        frame.origin.y = 0;
+        
+        if (tagSubviews_.count == 0) {
+            frame.origin.x = 7;
+        } else {
+            UIView *view = tagSubviews_.lastObject;
+            frame.origin.x = view.frame.origin.x + view.frame.size.width + 4;
         }
         
-        UIView *view = tagSubviews_.lastObject;
-        frame.origin.x = view.frame.origin.x + view.frame.size.width + 4;
-    }
-    
-    if (self.frame.size.width - tagInputField_.frame.origin.x > 100) {
-        frame.size.width = self.frame.size.width - frame.origin.x - 12;
+        if (self.frame.size.width - tagInputField_.frame.origin.x > 100) {
+            frame.size.width = self.frame.size.width - frame.origin.x - 12;
+        } else {
+            frame.size.width = 100;
+        }
+        tagInputField_.frame = frame;
     } else {
-        frame.size.width = 100;
+        UIView *lastTag = tagSubviews_.lastObject;
+        if (lastTag != nil) {
+            frame = lastTag.frame;
+        } else {
+            frame.origin.x = 7;
+        }
     }
     
-    tagInputField_.frame = frame;
-    
-    CGSize contentSize = self.contentSize;
     contentSize.width = frame.origin.x + frame.size.width;
+    contentSize.height = self.frame.size.height;
+    
     self.contentSize = contentSize;
 }
 
@@ -100,7 +140,12 @@
     CGPoint offset = self.contentOffset;
     
     if (contentSize.width > self.frame.size.width) {
-        offset.x = tagInputField_.frame.origin.x + tagInputField_.frame.size.width - self.frame.size.width;
+        if (_mode == TLTagsControlModeEdit) {
+            offset.x = tagInputField_.frame.origin.x + tagInputField_.frame.size.width - self.frame.size.width;
+        } else {
+            UIView *lastTag = tagSubviews_.lastObject;
+            offset.x = lastTag.frame.origin.x + lastTag.frame.size.width - self.frame.size.width;
+        }
     } else {
         offset.x = 0;
     }
@@ -116,6 +161,15 @@
     
     [tagSubviews_ removeAllObjects];
     
+    UIColor *tagBackgrounColor = _tagsBackgroungColor != nil ? _tagsBackgroungColor : [UIColor colorWithRed:0.9
+                                                                                                      green:0.91
+                                                                                                       blue:0.925
+                                                                                                      alpha:1];
+    UIColor *tagTextColor = _tagsTextColor != nil ? _tagsTextColor : [UIColor darkGrayColor];
+    UIColor *tagDeleteButtonColor = _tagsDeleteButtonColor != nil ? _tagsDeleteButtonColor : [UIColor blackColor];
+    
+    
+    
     for (NSString *tag in _tags) {
         float width = [tag boundingRectWithSize:CGSizeMake(3000,tagInputField_.frame.size.height)
                                         options:NSStringDrawingUsesLineFragmentOrigin
@@ -126,60 +180,79 @@
         CGRect tagFrame = tagView.frame;
         tagView.layer.cornerRadius = 5;
         tagFrame.origin.y = tagInputField_.frame.origin.y;
-        tagView.backgroundColor = [UIColor colorWithRed:0.9 green:0.91 blue:0.925 alpha:1];
+        tagView.backgroundColor = tagBackgrounColor;
         
-        UILabel *label = [[UILabel alloc] init];
-        CGRect labelFrame = label.frame;
-        label.font = tagInputField_.font;
+        UILabel *tagLabel = [[UILabel alloc] init];
+        CGRect labelFrame = tagLabel.frame;
+        tagLabel.font = tagInputField_.font;
         labelFrame.size.width = width + 16;
         labelFrame.size.height = tagInputField_.frame.size.height;
-        label.text = tag;
-        label.textColor = [UIColor darkGrayColor];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.clipsToBounds = YES;
-        label.layer.cornerRadius = 5;
+        tagLabel.text = tag;
+        tagLabel.textColor = tagTextColor;
+        tagLabel.textAlignment = NSTextAlignmentCenter;
+        tagLabel.clipsToBounds = YES;
+        tagLabel.layer.cornerRadius = 5;
         
-        UIButton *deleteTagButton = [[UIButton alloc] initWithFrame:tagInputField_.frame];
-        CGRect buttonFrame = deleteTagButton.frame;
-        [deleteTagButton.titleLabel setFont:tagInputField_.font];
-        [deleteTagButton addTarget:self action:@selector(deleteTagButton:) forControlEvents:UIControlEventTouchUpInside];
-        buttonFrame.size.width = deleteTagButton.frame.size.height;
-        buttonFrame.size.height = tagInputField_.frame.size.height;
-        [deleteTagButton setTag:tagSubviews_.count];
-        [deleteTagButton setTitle:@"✕" forState:UIControlStateNormal];
-        [deleteTagButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        if (_mode == TLTagsControlModeEdit) {
+            UIButton *deleteTagButton = [[UIButton alloc] initWithFrame:tagInputField_.frame];
+            CGRect buttonFrame = deleteTagButton.frame;
+            [deleteTagButton.titleLabel setFont:tagInputField_.font];
+            [deleteTagButton addTarget:self action:@selector(deleteTagButton:) forControlEvents:UIControlEventTouchUpInside];
+            buttonFrame.size.width = deleteTagButton.frame.size.height;
+            buttonFrame.size.height = tagInputField_.frame.size.height;
+            [deleteTagButton setTag:tagSubviews_.count];
+            [deleteTagButton setTitle:@"✕" forState:UIControlStateNormal];
+            [deleteTagButton setTitleColor:tagDeleteButtonColor forState:UIControlStateNormal];
+            buttonFrame.origin.y = 0;
+            buttonFrame.origin.x = labelFrame.size.width;
+            
+            deleteTagButton.frame = buttonFrame;
+            tagFrame.size.width = labelFrame.size.width + buttonFrame.size.width;
+            [tagView addSubview:deleteTagButton];
+            labelFrame.origin.x = 0;
+        } else {
+            tagFrame.size.width = labelFrame.size.width + 5;
+            labelFrame.origin.x = (tagFrame.size.width - labelFrame.size.width) * 0.5;
+        }
         
-        tagFrame.size.width = labelFrame.size.width + buttonFrame.size.width;
-        [tagView addSubview:label];
-        [tagView addSubview:deleteTagButton];
-        labelFrame.origin.x = 0;
-        buttonFrame.origin.y = 0;
+        [tagView addSubview:tagLabel];
         labelFrame.origin.y = 0;
-        buttonFrame.origin.x = labelFrame.size.width;
         UIView *lastView = tagSubviews_.lastObject;
         
         if (lastView != nil) {
             tagFrame.origin.x = lastView.frame.origin.x + lastView.frame.size.width + 4;
         }
         
-        label.frame = labelFrame;
+        tagLabel.frame = labelFrame;
         tagView.frame = tagFrame;
-        deleteTagButton.frame = buttonFrame;
         [tagSubviews_ addObject:tagView];
         [self addSubview:tagView];
     }
     
-    CGRect frame = tagInputField_.frame;
-    if (tagSubviews_.count == 0) {
-        frame.origin.x = 7;
+    
+    if (_mode == TLTagsControlModeEdit) {
+        if (tagInputField_.superview == nil) {
+            [self addSubview:tagInputField_];
+        }
+        CGRect frame = tagInputField_.frame;
+        if (tagSubviews_.count == 0) {
+            frame.origin.x = 7;
+        } else {
+            UIView *view = tagSubviews_.lastObject;
+            frame.origin.x = view.frame.origin.x + view.frame.size.width + 4;
+        }
+        tagInputField_.frame = frame;
+        
     } else {
-        UIView *view = tagSubviews_.lastObject;
-        frame.origin.x = view.frame.origin.x + view.frame.size.width + 4;
+        if (tagInputField_.superview != nil) {
+            [tagInputField_ removeFromSuperview];
+        }
     }
-    tagInputField_.frame = frame;
     
     [self setNeedsLayout];
 }
+
+#pragma mark - buttons handlers
 
 - (void)deleteTagButton:(UIButton *)sender {
     UIView *view = sender.superview;
@@ -187,12 +260,6 @@
     
     NSInteger index = [tagSubviews_ indexOfObject:view];
     [_tags removeObjectAtIndex:index];
-    [self reloadTagSubviews];
-}
-
-- (void)setTags:(NSMutableArray *)tags {
-    _tags = tags;
-    
     [self reloadTagSubviews];
 }
 
@@ -249,6 +316,16 @@
         
         return YES;
     }
+}
+
+#pragma mark - other
+
+- (void)setMode:(TLTagsControlMode)mode {
+    _mode = mode;
+}
+
+- (void)setTags:(NSMutableArray *)tags {
+    _tags = tags;
 }
 
 @end

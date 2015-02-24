@@ -12,15 +12,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TLTagsControl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KtN-yy-hLk">
+                                <rect key="frame" x="16" y="35" width="288" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="K0q-hs-3Bd" customClass="TLTagsControl">
-                                <rect key="frame" x="7" y="107" width="306" height="32"/>
+                                <rect key="frame" x="7" y="86" width="306" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="Rdj-EL-bmX" customClass="TLTagsControl">
+                                <rect key="frame" x="7" y="126" width="306" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="fuR-67-dAv" customClass="TLTagsControl">
+                                <rect key="frame" x="7" y="166" width="306" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="sBF-0F-nT1" customClass="TLTagsControl">
+                                <rect key="frame" x="7" y="206" width="306" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="JHV-ys-soh" customClass="TLTagsControl">
+                                <rect key="frame" x="7" y="246" width="306" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="qWD-qi-oWK" customClass="TLTagsControl">
+                                <rect key="frame" x="7" y="286" width="306" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="tagControl" destination="K0q-hs-3Bd" id="ffd-xc-enK"/>
+                        <outlet property="blueEditingTagControl" destination="Rdj-EL-bmX" id="UKI-vs-keE"/>
+                        <outlet property="blueListingTagControl" destination="JHV-ys-soh" id="Zif-pd-bRK"/>
+                        <outlet property="defauldEditingTagControl" destination="K0q-hs-3Bd" id="abc-MU-ZWs"/>
+                        <outlet property="defauldListingTagControl" destination="sBF-0F-nT1" id="ROo-dK-6a1"/>
+                        <outlet property="redEditingTagControl" destination="fuR-67-dAv" id="SUn-RV-HQM"/>
+                        <outlet property="redListingTagControl" destination="qWD-qi-oWK" id="ROG-Ce-RAQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
