@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -49,8 +49,8 @@
                     <connections>
                         <outlet property="blueEditingTagControl" destination="Rdj-EL-bmX" id="UKI-vs-keE"/>
                         <outlet property="blueListingTagControl" destination="JHV-ys-soh" id="Zif-pd-bRK"/>
-                        <outlet property="defauldEditingTagControl" destination="K0q-hs-3Bd" id="abc-MU-ZWs"/>
                         <outlet property="defauldListingTagControl" destination="sBF-0F-nT1" id="ROo-dK-6a1"/>
+                        <outlet property="defaultEditingTagControl" destination="K0q-hs-3Bd" id="grm-e1-849"/>
                         <outlet property="redEditingTagControl" destination="fuR-67-dAv" id="SUn-RV-HQM"/>
                         <outlet property="redListingTagControl" destination="qWD-qi-oWK" id="ROG-Ce-RAQ"/>
                     </connections>

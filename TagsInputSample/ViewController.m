@@ -10,7 +10,7 @@
 #import "TLTagsControl.h"
 @interface ViewController ()<TLTagsControlDelegate>
 
-@property (nonatomic, strong) IBOutlet TLTagsControl *defauldEditingTagControl;
+@property (nonatomic, strong) IBOutlet TLTagsControl *defaultEditingTagControl;
 @property (nonatomic, strong) IBOutlet TLTagsControl *blueEditingTagControl;
 @property (nonatomic, strong) IBOutlet TLTagsControl *redEditingTagControl;
 @property (nonatomic, strong) IBOutlet TLTagsControl *defauldListingTagControl;
@@ -27,14 +27,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     NSMutableArray *tags = [NSMutableArray arrayWithArray:@[@"A", @"Tag", @"One", @"More", @"Tag", @"And", @"Yet", @"Another", @"One"]];
-    _defauldEditingTagControl.tags = tags;
-    _blueEditingTagControl.tags = tags;
-    _redEditingTagControl.tags = tags;
-    _defauldEditingTagControl.tagPlaceholder = @"Placeholder";
+    _defaultEditingTagControl.tags = [tags mutableCopy];
+    _blueEditingTagControl.tags = [tags mutableCopy];
+    _redEditingTagControl.tags = [tags mutableCopy];
+    _defaultEditingTagControl.tagPlaceholder = @"Placeholder";
     
-    _defauldListingTagControl.tags = tags;
-    _blueListingTagControl.tags = tags;
-    _redListingTagControl.tags = tags;
+    _defauldListingTagControl.tags = [tags mutableCopy];
+    _blueListingTagControl.tags = [tags mutableCopy];
+    _redListingTagControl.tags = [tags mutableCopy];
     
     _defauldListingTagControl.mode = TLTagsControlModeList;
     _blueListingTagControl.mode = TLTagsControlModeList;
@@ -59,7 +59,7 @@
     _redListingTagControl.tagsBackgroundColor = redBackgroundColor;
     _redListingTagControl.tagsTextColor = whiteTextColor;
     
-    [_defauldEditingTagControl reloadTagSubviews];
+    [_defaultEditingTagControl reloadTagSubviews];
     [_blueEditingTagControl reloadTagSubviews];
     [_redEditingTagControl reloadTagSubviews];
     [_defauldListingTagControl reloadTagSubviews];
