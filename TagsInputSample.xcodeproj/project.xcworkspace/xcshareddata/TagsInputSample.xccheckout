@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B5E53F1A-0752-49BB-BA88-10C65F59EEAF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TagsInputSample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>50811F1785D4DD628C51E3FB19BF2C6E0420EF0A</key>
+		<string>https://github.com/xnth97/TLTagsControl.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TagsInputSample.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>50811F1785D4DD628C51E3FB19BF2C6E0420EF0A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/xnth97/TLTagsControl.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>50811F1785D4DD628C51E3FB19BF2C6E0420EF0A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>50811F1785D4DD628C51E3FB19BF2C6E0420EF0A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TLTagsControl</string>
+		</dict>
+	</array>
+</dict>
+</plist>

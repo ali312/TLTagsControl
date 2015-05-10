@@ -8,7 +8,7 @@
 
 #import "TLTagsControl.h"
 
-@interface TLTagsControl () <UITextFieldDelegate>
+@interface TLTagsControl () <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @end
 
@@ -16,6 +16,8 @@
     UITextField                 *tagInputField_;
     NSMutableArray              *tagSubviews_;
 }
+
+@synthesize tapDelegate;
 
 - (instancetype)init {
     self = [super init];
@@ -32,6 +34,18 @@
     
     if (self != nil) {
         [self commonInit];
+    }
+    
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame andTags:(NSArray *)tags withTagsControlMode:(TLTagsControlMode)mode {
+    self = [super initWithFrame:frame];
+    
+    if (self != nil) {
+        [self commonInit];
+        [self setTags:[[NSMutableArray alloc]initWithArray:tags]];
+        [self setMode:mode];
     }
     
     return self;
@@ -80,6 +94,7 @@
     CGSize contentSize = self.contentSize;
     CGRect frame = CGRectMake(0, 0, 100, self.frame.size.height);
     CGRect tempViewFrame;
+    NSInteger tagIndex = 0;
     for (UIView *view in tagSubviews_) {
         tempViewFrame = view.frame;
         NSInteger index = [tagSubviews_ indexOfObject:view];
@@ -91,6 +106,18 @@
         }
         tempViewFrame.origin.y = frame.origin.y;
         view.frame = tempViewFrame;
+        
+        if (_mode == TLTagsControlModeList) {
+            view.tag = tagIndex;
+            
+            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)];
+            [tapRecognizer setNumberOfTapsRequired:1];
+            [tapRecognizer setDelegate:self];
+            [view setUserInteractionEnabled:YES];
+            [view addGestureRecognizer:tapRecognizer];
+        }
+        
+        tagIndex++;
     }
     
     if (_mode == TLTagsControlModeEdit) {
@@ -124,6 +151,8 @@
     contentSize.height = self.frame.size.height;
     
     self.contentSize = contentSize;
+    
+    tagInputField_.placeholder = (_tagPlaceholder == nil) ? @"tag" : _tagPlaceholder;
 }
 
 - (void)addTag:(NSString *)tag {
@@ -161,7 +190,7 @@
     
     [tagSubviews_ removeAllObjects];
     
-    UIColor *tagBackgrounColor = _tagsBackgroungColor != nil ? _tagsBackgroungColor : [UIColor colorWithRed:0.9
+    UIColor *tagBackgrounColor = _tagsBackgroundColor != nil ? _tagsBackgroundColor : [UIColor colorWithRed:0.9
                                                                                                       green:0.91
                                                                                                        blue:0.925
                                                                                                       alpha:1];
@@ -326,6 +355,15 @@
 
 - (void)setTags:(NSMutableArray *)tags {
     _tags = tags;
+}
+
+- (void)setPlaceholder:(NSString *)tagPlaceholder {
+    _tagPlaceholder = tagPlaceholder;
+}
+
+- (void)gestureAction:(id)sender {
+    UITapGestureRecognizer *tapRecognizer = (UITapGestureRecognizer *)sender;
+    [tapDelegate tagsControl:self tappedAtIndex:tapRecognizer.view.tag];
 }
 
 @end
