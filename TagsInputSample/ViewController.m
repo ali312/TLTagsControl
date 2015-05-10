@@ -67,7 +67,10 @@
     [_redListingTagControl reloadTagSubviews];
     [_redListingTagControl setTapDelegate:self];
     
-    demoTagsControl = [[TLTagsControl alloc]initWithFrame:CGRectMake(8, 340, self.view.frame.size.width - 16, 36) andTags:@[@"One", @"Two", @"Three"] withTagsControlMode:TLTagsControlModeList];
+    demoTagsControl = [[TLTagsControl alloc]initWithFrame:CGRectMake(8, 340, self.view.frame.size.width - 16, 36)
+                                                  andTags:@[@"These", @"Tags", @"Are", @"Tapable"]
+                                      withTagsControlMode:TLTagsControlModeList];
+    
     [demoTagsControl reloadTagSubviews];
     [demoTagsControl setTapDelegate:self];
     [self.view addSubview:demoTagsControl];
@@ -78,15 +81,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-// tags tap delegate
+#pragma mark - TLTagsControlDelegate
 - (void)tagsControl:(TLTagsControl *)tagsControl tappedAtIndex:(NSInteger)index {
-    if (tagsControl == _redListingTagControl) {
-        NSLog(@"%@ tapped", _redListingTagControl.tags[index]);
-    }
-    
-    if (tagsControl == demoTagsControl) {
-        NSLog(@"Tag %ld tapped", index);
-    }
+    NSLog(@"Tag \"%@\" was tapped", tagsControl.tags[index]);
 }
 
 @end

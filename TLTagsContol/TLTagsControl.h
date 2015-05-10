@@ -33,7 +33,6 @@ typedef NS_ENUM(NSUInteger, TLTagsControlMode) {
 @property (assign, nonatomic) id<TLTagsControlDelegate> tapDelegate;
 
 - (id)initWithFrame:(CGRect)frame andTags:(NSArray *)tags withTagsControlMode:(TLTagsControlMode)mode;
-//- (id)initListTagsControlWithFrame:(CGRect)frame andTages:(NSArray *)tags withTapBlock:(void(^)(id weakSender))block;
 
 - (void)addTag:(NSString *)tag;
 - (void)reloadTagSubviews;
