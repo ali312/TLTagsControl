@@ -365,5 +365,7 @@
     UITapGestureRecognizer *tapRecognizer = (UITapGestureRecognizer *)sender;
     [tapDelegate tagsControl:self tappedAtIndex:tapRecognizer.view.tag];
 }
-
+-(void) setKeyboardFocus{
+    [tagInputField_ becomeFirstResponder];
+}
 @end
