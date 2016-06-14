@@ -290,6 +290,10 @@
     NSInteger index = [tagSubviews_ indexOfObject:view];
     [_tags removeObjectAtIndex:index];
     [self reloadTagSubviews];
+    
+    if ([self.tapDelegate respondsToSelector:@selector(tagsControl:removedAtIndex:)]) {
+        [self.tapDelegate tagsControl:self removedAtIndex:index];
+    }
 }
 
 - (void)tagButtonPressed:(id)sender {
@@ -363,7 +367,9 @@
 
 - (void)gestureAction:(id)sender {
     UITapGestureRecognizer *tapRecognizer = (UITapGestureRecognizer *)sender;
-    [tapDelegate tagsControl:self tappedAtIndex:tapRecognizer.view.tag];
+    if ([self.tapDelegate respondsToSelector:@selector(tagsControl:tappedAtIndex:)]) {
+        [tapDelegate tagsControl:self tappedAtIndex:tapRecognizer.view.tag];
+    }
 }
 
 @end
