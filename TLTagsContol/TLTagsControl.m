@@ -81,11 +81,7 @@
     tagInputField_.placeholder = @"tag";
     tagInputField_.autocorrectionType = UITextAutocorrectionTypeNo;
     
-    if (_font != nil) {
-        tagInputField_.font = _font;
-    } else {
-        tagInputField_.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
-    }
+    _font = [UIFont fontWithName:@"HelveticaNeue" size:14];
     
     if (_mode == TLTagsControlModeEdit) {
         [self addSubview:tagInputField_];
@@ -207,7 +203,7 @@
     for (NSString *tag in _tags) {
         float width = [tag boundingRectWithSize:CGSizeMake(3000,tagInputField_.frame.size.height)
                                         options:NSStringDrawingUsesLineFragmentOrigin
-                                     attributes:@{NSFontAttributeName:tagInputField_.font}
+                                     attributes:@{NSFontAttributeName:self.font}
                                         context:nil].size.width;
         
         UIView *tagView = [[UIView alloc] initWithFrame:tagInputField_.frame];
@@ -218,7 +214,7 @@
         
         UILabel *tagLabel = [[UILabel alloc] init];
         CGRect labelFrame = tagLabel.frame;
-        tagLabel.font = tagInputField_.font;
+        tagLabel.font = self.font;
         labelFrame.size.width = width + 16;
         labelFrame.size.height = tagInputField_.frame.size.height;
         tagLabel.text = tag;
@@ -230,7 +226,7 @@
         if (_mode == TLTagsControlModeEdit) {
             UIButton *deleteTagButton = [[UIButton alloc] initWithFrame:tagInputField_.frame];
             CGRect buttonFrame = deleteTagButton.frame;
-            [deleteTagButton.titleLabel setFont:tagInputField_.font];
+            [deleteTagButton.titleLabel setFont:self.font];
             [deleteTagButton addTarget:self action:@selector(deleteTagButton:) forControlEvents:UIControlEventTouchUpInside];
             buttonFrame.size.width = deleteTagButton.frame.size.height;
             buttonFrame.size.height = tagInputField_.frame.size.height;
