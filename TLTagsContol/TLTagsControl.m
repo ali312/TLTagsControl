@@ -371,7 +371,7 @@
         [tapDelegate tagsControl:self tappedAtIndex:tapRecognizer.view.tag];
     }
 }
--(void) setKeyboardFocus{
+- (void)setKeyboardFocus {
     [tagInputField_ becomeFirstResponder];
 }
 @end
