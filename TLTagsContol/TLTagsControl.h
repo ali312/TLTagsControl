@@ -37,5 +37,6 @@ typedef NS_ENUM(NSUInteger, TLTagsControlMode) {
 
 - (void)addTag:(NSString *)tag;
 - (void)reloadTagSubviews;
+- (void)setKeyboardFocus;
 
 @end
