@@ -73,6 +73,8 @@
     
     tagSubviews_ = [NSMutableArray array];
     
+    _font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    
     tagInputField_ = [[UITextField alloc] initWithFrame:self.frame];
     tagInputField_.layer.cornerRadius = 5;
     tagInputField_.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -80,8 +82,7 @@
     tagInputField_.delegate = self;
     tagInputField_.placeholder = @"tag";
     tagInputField_.autocorrectionType = UITextAutocorrectionTypeNo;
-    
-    _font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    tagInputField_.font = _font;
     
     if (_mode == TLTagsControlModeEdit) {
         [self addSubview:tagInputField_];
