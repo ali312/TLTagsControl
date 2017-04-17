@@ -9,7 +9,7 @@ You are able to switch between displyaing modes by setting the **mode** property
 @property (nonatomic) TLTagsControlMode mode;
 ```
 
-######TLTagsControl has two displaying modes:
+###### TLTagsControl has two displaying modes:
 ```
 TLTagsControlModeEdit,
 ```
@@ -46,7 +46,7 @@ To apply your changes you should call the method below
 - (void)reloadTagSubviews;
 ```
 
-######Example:
+###### Example:
 
 ```
 //assuming tagControl will be set initialized from stroryboard
