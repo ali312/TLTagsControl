@@ -63,7 +63,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self commonInit];
 }
 
 - (void)commonInit {
