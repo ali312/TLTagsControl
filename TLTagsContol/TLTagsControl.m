@@ -61,10 +61,6 @@
     return self;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
-
 - (void)commonInit {
     _tags = [NSMutableArray array];
     
